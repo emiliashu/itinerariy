@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Итинерарий</title>
+    <link href="https://fonts.googleapis.com/css?family=Marmelad|Inter:400,700|Educational+Gothic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<div id="splash" class="splash">
+    <h1 class="splash-title">Итинерарий</h1>
+</div>
+
+<div id="app" class="app hidden">
+    <nav class="navbar">
+        <div class="logo-top">Итинерарий</div>
+        <div class="nav-links">
+            <div class="nav-left">
+                <a href="#" id="nav-home">главная</a>
+                <a href="#" id="nav-search">поиск</a>
+            </div>
+            <div class="nav-right">
+                <a href="#" id="nav-subs">подписки</a>
+                <a href="#" id="nav-profile">профиль</a>
+            </div>
+        </div>
+    </nav>
+
+    <div id="search-panel" class="search-panel hidden">
+        <div class="search-container">
+            <input type="text" id="global-search" placeholder="что ищем?" class="search-main-input">
+            <div class="filters-row">
+                <select id="filter-country" class="filter-select">
+                    <option value="">страны</option>
+                    <option value="Черногория">Черногория</option>
+                    <option value="Китай">Китай</option>
+                    <option value="Непал">Непал</option>
+                    <option value="Таиланд">Таиланд</option>
+                    <option value="Грузия">Грузия</option>
+                    <option value="Япония">Япония</option>
+                    <option value="Италия">Италия</option>
+                </select>
+                <div class="budget-filters">
+                    <input type="number" id="budget-from" placeholder="бюджет от">
+                    <span>-</span>
+                    <input type="number" id="budget-to" placeholder="до">
+                </div>
+                <button id="apply-filter" class="apply-btn">Найти</button>
+            </div>
+            <button id="close-search" class="close-search">✕</button>
+        </div>
+    </div>
+
+    <main id="main-content">
+        <h1 id="page-title" class="page-title">Подобрали статьи, которые могут вам понравиться</h1>
+        <div id="articles-grid" class="articles-grid"></div>
+    </main>
+
+    <div id="article-page" class="article-page hidden">
+        <button id="article-back-btn" class="back-btn">← обратно</button>
+        <div id="single-article-content"></div>
+        <div id="edit-article-panel" class="edit-article-panel hidden">
+            <button id="edit-article-btn" class="edit-article-btn">✎ Редактировать статью</button>
+            <div id="edit-article-form" class="edit-article-form hidden">
+                <input type="text" id="edit-title" placeholder="Заголовок">
+                <input type="text" id="edit-country" placeholder="Страна">
+                <input type="number" id="edit-price" placeholder="Цена">
+                <textarea id="edit-content" rows="5" placeholder="Содержание"></textarea>
+                <button id="save-article-btn">Сохранить</button>
+                <button id="cancel-article-edit-btn">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="profile-section" class="profile-section hidden">
+        <div class="profile-card">
+            <div class="profile-avatar" id="profile-avatar">
+                <span>👤</span>
+            </div>
+            <div class="profile-info">
+                <div class="profile-name-row">
+                    <h2 id="profile-name">Мила Шео</h2>
+                    <button id="edit-profile-btn" class="edit-btn">✎</button>
+                </div>
+                <div class="profile-stats">
+                    <span><span id="stat-articles">0</span> статей</span>
+                    <span><span id="stat-countries">0</span> стран</span>
+                    <span><span id="stat-subs">0</span> подписчиков</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="profile-tabs">
+            <button class="tab-btn active" data-tab="my-articles-tab">ваши статьи</button>
+            <button class="tab-btn" data-tab="constructor-tab">конструктор статей</button>
+            <button class="tab-btn" data-tab="statistics-tab">статистика</button>
+            <button class="tab-btn" data-tab="photoalbum-tab">фотоальбом</button>
+        </div>
+        
+        <div id="my-articles-tab" class="tab-content active">
+            <div id="my-articles-list" class="articles-grid"></div>
+        </div>
+        
+        <div id="constructor-tab" class="tab-content">
+            <div class="constructor-form">
+                <input type="text" id="new-title" placeholder="Заголовок статьи">
+                <div class="price-row">
+                    <input type="number" id="new-price-from" placeholder="Цена от">
+                    <input type="number" id="new-price-to" placeholder="Цена до">
+                </div>
+                <input type="text" id="new-country" placeholder="Страна">
+                <textarea id="new-content" placeholder="Содержание" rows="4"></textarea>
+                <div class="blocks-builder">
+                    <button id="add-block-btn">+ добавить блок</button>
+                </div>
+                <div id="blocks-list" class="blocks-list"></div>
+                <button id="publish-article-btn">Опубликовать статью</button>
+            </div>
+        </div>
+        
+        <div id="statistics-tab" class="tab-content">
+            <div class="statistics-list">
+                <div class="stat-row">
+                    <div class="stat-label">просмотры профиля</div>
+                    <div class="stat-bar"><div class="stat-fill" id="profile-views-fill" style="width: 0%"></div></div>
+                    <div class="stat-value" id="profile-views">0</div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-label">анализ аудитории</div>
+                    <div class="stat-bar"><div class="stat-fill" id="audience-fill" style="width: 0%"></div></div>
+                    <div class="stat-value" id="audience-count">0</div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-label">всего лайков</div>
+                    <div class="stat-bar"><div class="stat-fill" id="likes-fill" style="width: 0%"></div></div>
+                    <div class="stat-value" id="total-likes">0</div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-label">всего просмотров</div>
+                    <div class="stat-bar"><div class="stat-fill" id="views-fill" style="width: 0%"></div></div>
+                    <div class="stat-value" id="total-views">0</div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="photoalbum-tab" class="tab-content">
+            <div id="photoalbum-grid" class="photoalbum-grid"></div>
+        </div>
+    </div>
+
+    <div id="view-profile-section" class="view-profile-section hidden">
+        <button id="view-profile-back-btn" class="back-btn">← обратно</button>
+        <div class="profile-card">
+            <div class="profile-avatar" id="view-profile-avatar">
+                <span>👤</span>
+            </div>
+            <div class="profile-info">
+                <h2 id="view-profile-name"></h2>
+                <div class="profile-stats">
+                    <span><span id="view-stat-articles">0</span> статей</span>
+                    <span><span id="view-stat-countries">0</span> стран</span>
+                    <span><span id="view-stat-subs">0</span> подписчиков</span>
+                </div>
+            </div>
+        </div>
+        <div id="view-articles-list" class="articles-grid"></div>
+    </div>
+
+    <div id="subscriptions-section" class="subscriptions-section hidden">
+        <div class="subscriptions-tabs">
+            <button class="subs-tab-btn active" data-subs-tab="all-profiles">все профили</button>
+            <button class="subs-tab-btn" data-subs-tab="favorites">избранные статьи</button>
+        </div>
+        
+        <div id="all-profiles-tab" class="subs-tab-content active">
+            <div id="all-profiles-list" class="profiles-list"></div>
+        </div>
+        
+        <div id="favorites-tab" class="subs-tab-content">
+            <div id="favorites-grid" class="articles-grid"></div>
+        </div>
+    </div>
+
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h3>Какой блок добавить?</h3>
+            <div class="modal-buttons">
+                <button id="modal-text-btn">текст</button>
+                <button id="modal-photo-btn">фото</button>
+                <button id="modal-map-btn">точка на карте</button>
+            </div>
+            <button id="modal-close" class="modal-close">Отмена</button>
+        </div>
+    </div>
+
+    <div id="edit-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h3>Редактировать профиль</h3>
+            <input type="text" id="edit-name" placeholder="Новое имя" class="edit-input">
+            <input type="file" id="edit-avatar" accept="image/*" class="edit-input">
+            <div class="modal-buttons">
+                <button id="save-profile-btn">Сохранить</button>
+                <button id="cancel-edit-modal-btn">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <span>О проекте</span>
+            <span>Почта: emiliashushu@yandex.ru</span>
+        </div>
+    </footer>
+</div>
+
+<script src="/script.js"></script>
+</body>
+</html>
